@@ -1,0 +1,10 @@
+Description:
+    Creates the command model structure for you.
+
+Example: 
+    rails generate commands user create_user
+
+    This will create: 
+        app/cqrs/user/commands/create_user_command.rb
+        app/cqrs/user/commands/validators/create_user_command_validator.rb
+        app/cqrs/user/commands/handlers/create_user_command_handler.rb
