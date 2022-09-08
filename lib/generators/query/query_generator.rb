@@ -1,4 +1,4 @@
-class QueriesGenerator < Rails::Generators::Base
+class QueryGenerator < Rails::Generators::Base
     source_root File.expand_path('../templates', __FILE__)
     argument :model, type: :string
     argument :name, type: :string
@@ -17,14 +17,14 @@ class QueriesGenerator < Rails::Generators::Base
     private
 
     def generate_query
-        template 'queries_template.template', "app/cqrs/#{model.underscore}/queries/#{name.underscore}_query.rb"
+        template 'query_template.template', "app/cqrs/#{model.underscore}/queries/#{name.underscore}_query.rb"
     end
 
     def generate_query_validator
-        template 'queries_validator_template.template', "app/cqrs/#{model.underscore}/queries/validators/#{name.underscore}_query_validator.rb"
+        template 'query_validator_template.template', "app/cqrs/#{model.underscore}/queries/validators/#{name.underscore}_query_validator.rb"
     end
 
     def generate_query_handler
-        template 'queries_handler_template.template', "app/cqrs/#{model.underscore}/queries/handlers/#{name.underscore}_query_handler.rb"
+        template 'query_handler_template.template', "app/cqrs/#{model.underscore}/queries/handlers/#{name.underscore}_query_handler.rb"
     end
 end

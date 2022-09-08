@@ -1,4 +1,4 @@
-class CommandsGenerator < Rails::Generators::Base
+class CommandGenerator < Rails::Generators::Base
     source_root File.expand_path('../templates', __FILE__)
     argument :model, type: :string
     argument :name, type: :string
@@ -14,18 +14,17 @@ class CommandsGenerator < Rails::Generators::Base
         generate_command_validator if options.validator?
     end
 
-
     private
 
     def generate_command
-        template 'commands_template.template', "app/cqrs/#{model.underscore}/commands/#{name.underscore}_command.rb"
+        template 'command_template.template', "app/cqrs/#{model.underscore}/commands/#{name.underscore}_command.rb"
     end
 
     def generate_command_validator
-        template 'commands_validator_template.template', "app/cqrs/#{model.underscore}/commands/validators/#{name.underscore}_command_validator.rb"
+        template 'command_validator_template.template', "app/cqrs/#{model.underscore}/commands/validators/#{name.underscore}_command_validator.rb"
     end
 
     def generate_command_handler
-        template 'commands_handler_template.template', "app/cqrs/#{model.underscore}/commands/handlers/#{name.underscore}_command_handler.rb"
+        template 'command_handler_template.template', "app/cqrs/#{model.underscore}/commands/handlers/#{name.underscore}_command_handler.rb"
     end
 end

@@ -2,7 +2,7 @@ Description:
     Creates the query model structure for you.
 
 Example: 
-    rails generate queries user get_all_user
+    rails generate query user get_all_user
 
     This will create: 
         app/cqrs/user/queries/get_all_user_query.rb

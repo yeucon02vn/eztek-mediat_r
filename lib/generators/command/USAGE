@@ -2,7 +2,7 @@ Description:
     Creates the command model structure for you.
 
 Example: 
-    rails generate commands user create_user
+    rails generate command user create_user
 
     This will create: 
         app/cqrs/user/commands/create_user_command.rb
