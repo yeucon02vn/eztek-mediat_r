@@ -1,0 +1,7 @@
+module <%= model.camelcase %>::Queries::Handlers
+    class <%= name.camelcase %>QueryHandler
+
+        def execute(request)
+        end
+    end
+end

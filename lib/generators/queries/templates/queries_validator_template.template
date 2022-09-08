@@ -1,0 +1,6 @@
+module <%= model.camelcase %>::Queries::Validators
+    class <%= name.camelcase %>QueryValidator < ActiveModel::Validator
+        def validate(record)
+        end
+    end
+end

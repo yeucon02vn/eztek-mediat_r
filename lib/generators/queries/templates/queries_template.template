@@ -1,0 +1,11 @@
+module <%= model.camelcase %>::Queries
+    class <%= name.camelcase %>Query
+        include ActiveModel::Validations
+        <%- options.validator -%>
+        validates_with Validators::<%= name.camelcase %>QueryValidator 
+        <%- end -%>
+
+        def initialize()
+        end
+    end
+end

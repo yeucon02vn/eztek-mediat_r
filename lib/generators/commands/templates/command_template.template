@@ -1,0 +1,11 @@
+module <%= model.camelcase %>::Commands
+    class <%= name.camelcase %>Command
+        include ActiveModel::Validations
+        <%- options.validator -%>
+        validates_with Validators::<%= name.camelcase %>CommandValidator 
+        <%- end -%>
+
+        def initialize()
+        end
+    end
+end
