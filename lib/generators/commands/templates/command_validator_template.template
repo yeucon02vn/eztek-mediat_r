@@ -1,0 +1,6 @@
+module <%= model.camelcase %>::Commands::Validators
+    class <%= name.camelcase %>CommandValidator < ActiveModel::Validator
+        def validate(record)
+        end
+    end
+end

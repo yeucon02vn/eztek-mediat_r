@@ -1,0 +1,7 @@
+module <%= model.camelcase %>::Commands::Handlers
+    class <%= name.camelcase %>CommandHandler
+
+        def execute(request)
+        end
+    end
+end
