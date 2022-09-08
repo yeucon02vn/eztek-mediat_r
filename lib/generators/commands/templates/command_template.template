@@ -1,7 +1,7 @@
 module <%= model.camelcase %>::Commands
     class <%= name.camelcase %>Command
         include ActiveModel::Validations
-        <%- options.validator -%>
+        <%- if options.validator? -%>
         validates_with Validators::<%= name.camelcase %>CommandValidator 
         <%- end -%>
 

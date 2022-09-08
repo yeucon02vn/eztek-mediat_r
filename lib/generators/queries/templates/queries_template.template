@@ -1,7 +1,7 @@
 module <%= model.camelcase %>::Queries
     class <%= name.camelcase %>Query
         include ActiveModel::Validations
-        <%- options.validator -%>
+        <%- if options.validator? -%>
         validates_with Validators::<%= name.camelcase %>QueryValidator 
         <%- end -%>
 
