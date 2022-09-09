@@ -1,8 +1,8 @@
-# Eztek::MediatR
+# Eztek MediatR
+
+<a href="https://www.buymeacoffee.com/phunguyen" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
 
 Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/eztek/mediat_r`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
 
 ## Installation
 
@@ -21,8 +21,69 @@ Or install it yourself as:
     $ gem install eztek-mediat_r
 
 ## Usage
+### Initialize mediatR
+Add new file config/initializers/mediat_r.rb to initializer mediatR
+```ruby
+require 'ez/mediat_r'
 
-TODO: Write usage instructions here
+mediator = EZ::MediatR.new
+Rails.configuration.to_prepare do
+    Rails.configuration.bus = Bus.new
+    Rails.configuration.bus.tap do |bus|
+        # Register command - handler
+        bus.register(Auth::Commands::LoginCommand, Auth::Commands::Handlers::LoginCommandHandler.new)
+    end
+end
+
+```
+
+### Declare mediatR in controller
+```ruby
+def initialize
+    @mediator = Rails.configuration.bus
+end
+
+```
+
+or dependency with dry-container, dry-auto_inject:
+ 
+### Register mediaR in container
+Use file dependency.rb to register mediatR
+```ruby
+require 'ez/mediat_r'
+
+dependency_container = Dry::Container.new
+dependency_container.register('mediator', -> { EZ::MediatR.new })
+AutoInject = Dry::AutoInject(dependency_container)
+
+```
+
+### Define mediatR in controller
+```ruby
+include AutoInject['mediator']
+
+```
+
+### Run mediator
+```ruby
+command = Auth::Commands::LoginCommand.new(username, password)
+mediator.execute(command) 
+
+```
+
+## Generator structure with rails 
+```ruby
+    $ rails generate command feature command_name
+```
+Example: 
+```ruby
+    $ rails generate command auth login
+```
+
+This will create: 
+    app/cqrs/auth/commands/login_command.rb
+    app/cqrs/auth/commands/validators/login_command_validator.rb
+    app/cqrs/auth/commands/handlers/login_command_handler.rb
 
 ## Development
 
@@ -32,4 +93,4 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/eztek-mediat_r.
+Bug reports and pull requests are welcome on GitHub at https://github.com/yeucon02vn/eztek-mediat_r.
