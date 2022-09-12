@@ -26,34 +26,23 @@ Add new file config/initializers/mediat_r.rb to initializer mediatR
 ```ruby
 require 'ez/mediat_r'
 
-mediator = EZ::MediatR.new
 Rails.configuration.to_prepare do
-    Rails.configuration.bus = Bus.new
-    Rails.configuration.bus.tap do |bus|
+    Rails.configuration.mediator = EZ::MediatR.new
+    Rails.configuration.mediator.tap do |mediator|
         # Register command - handler
-        bus.register(Auth::Commands::LoginCommand, Auth::Commands::Handlers::LoginCommandHandler.new)
+        mediator.register(Auth::Commands::LoginCommand, Auth::Commands::Handlers::LoginCommandHandler.new)
     end
 end
 
 ```
 
-### Declare mediatR in controller
-```ruby
-def initialize
-    @mediator = Rails.configuration.bus
-end
-
-```
-
-or dependency with dry-container, dry-auto_inject:
- 
-### Register mediaR in container
+### Register mediaR in container with dry-container, dry-auto_inject
 Use file dependency.rb to register mediatR
 ```ruby
 require 'ez/mediat_r'
 
 dependency_container = Dry::Container.new
-dependency_container.register('mediator', -> { EZ::MediatR.new })
+dependency_container.register('mediator', -> { Rails.configuration.mediator })
 AutoInject = Dry::AutoInject(dependency_container)
 
 ```
